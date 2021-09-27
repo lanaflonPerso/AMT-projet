@@ -6,6 +6,9 @@ Ce projet a pour but de créer une application web selon le modèle MVC en utili
 
 TODO
 
+## Logiciels 
+Slyum pour les schéma UML
+
 ## Utilisation
 
 TODO
