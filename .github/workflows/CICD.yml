@@ -75,4 +75,4 @@ jobs:
           #Set artifact name
           name: release
           #From this path
-          path: target/data-0.0.1-SNAPSHOT.jar
+          path: target/FlipFlop-*-SNAPSHOT.jar
