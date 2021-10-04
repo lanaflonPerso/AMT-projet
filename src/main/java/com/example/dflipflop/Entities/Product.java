@@ -8,9 +8,10 @@ import javax.persistence.Id;
 @Entity // This tells Hibernate to make a table out of this class
 public class Product {
 
+    // needed for SpringBoot Hibernate to create objects
     public Product() {}
-    public Product(Integer id, String name, String description, Float price,  String imageName){
-        this.id = id;
+
+    public Product(String name, String description, Float price,  String imageName){
         this.name = name;
         this.description = description;
         this.price = price;
@@ -55,6 +56,11 @@ public class Product {
 
     public String getImageName() {
         return imageName;
+    }
+
+    public String getImageRelativePath() {
+        // assuming we have only PNG files
+        return "images/" + imageName + ".png";
     }
 
     public void setImageName(String imageName) {
