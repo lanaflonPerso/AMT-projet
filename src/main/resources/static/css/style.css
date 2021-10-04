@@ -544,7 +544,7 @@ body{
     margin-bottom: 15px;
 }
 
-.best_text{
+.item_name{
 	width: 100%;
 	float: left;
 	font-size: 14pt;
@@ -552,7 +552,7 @@ body{
 	text-align: center;
     margin-left: 0px;
 }
-.shoes_icon{
+.item_icon{
 	width: 100%;
 	float: left;
 	text-align: center;
@@ -572,7 +572,7 @@ body{
 .left_part ul{ margin: 0px; padding: 0px; }
 .left_part li{ float: left; padding-left: 10px; }
 .right_part{ width: 40%; float: left; }
-.shoes_price{ 
+.price{
 	width: 100%; 
 	float: left; 
 	font-size: 22pt; 
