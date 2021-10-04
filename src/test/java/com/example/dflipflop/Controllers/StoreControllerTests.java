@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.example.dflipflop.Controllers.StoreController;
+import com.example.dflipflop.Services.ProductService;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,9 @@ public class StoreControllerTests {
 
     @Autowired
     private MockMvc mockMvc;
+
+    @MockBean
+    private ProductService productService;
 
     @Test
     public void shouldDisplayStore() throws Exception {
