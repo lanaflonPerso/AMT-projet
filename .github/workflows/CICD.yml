@@ -86,4 +86,4 @@ jobs:
           path: target/FlipFlop.war
       #Deploy the app to Tomcat
       - name: Deploy with Maven
-        run: mvn tomcat7:deploy-only package --file pom.xml
+        run: mvn tomcat7:deploy-only --file pom.xml
