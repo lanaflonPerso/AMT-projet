@@ -10,7 +10,7 @@ useradd -s /bin/false -g tomcat -d /opt/tomcat tomcat
 
 # Download tomcat 9 in tmp
 cd /tmp
-curl -O https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.53/bin/apache-tomcat-9.0.53.tar.gz
+curl -O https://downloads.apache.org/tomcat/tomcat-9/v9.0.54/bin/apache-tomcat-9.0.54.tar.gz
 
 # Extract Tomcat
 mkdir /opt/tomcat
@@ -62,7 +62,7 @@ echo "
               xsi:schemaLocation=\"http://tomcat.apache.org/xml tomcat-users.xsd\"
               version=\"1.0\">
 
-<user username=\"$username\" password=\"$password\" roles=\"manager-gui,admin-gui\"/>
+<user username=\"$username\" password=\"$password\" roles=\"manager-script,manager-status,manager-gui,admin-gui\"/>
 </tomcat-users>
 " > /opt/tomcat/conf/tomcat-users.xml
 
@@ -75,3 +75,5 @@ systemctl restart tomcat
 # Download and start setup of MariaDB
 apt-get -y install mariadb-server
 mysql_secure_installation
+echo "Finished install."
+echo "Please create the database, and user by following the install readme."
