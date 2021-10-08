@@ -44,7 +44,7 @@ jobs:
     #Depends on tests
     needs: tests
     #Only run it on the main branch
-    if: github.ref == 'refs/heads/main'
+    #if: github.ref == 'refs/heads/main'
     name: Build and Deploy
     #Run on Ubuntu using the latest version
     runs-on: ubuntu-latest
