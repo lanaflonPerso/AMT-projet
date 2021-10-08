@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 @Service
 public class ProductService {
@@ -13,7 +14,7 @@ public class ProductService {
         @Autowired
         private ProductRepository productRepository;
 
-        public ArrayList<Product> findAll() {
+        public ArrayList<Product> getAll() {
 
             Iterable<Product> it = productRepository.findAll();
 
@@ -21,6 +22,11 @@ public class ProductService {
             it.forEach(products::add);
 
             return products;
+        }
+
+        public Product get(Integer id) {
+            Optional<Product> product = productRepository.findById(id);
+            return product.orElse(null);
         }
 
         // should we make it return void ?
@@ -32,7 +38,6 @@ public class ProductService {
                 return false;
             }
             return true;
-
         }
 
         public Long count() {

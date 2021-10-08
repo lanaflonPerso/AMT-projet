@@ -18,7 +18,7 @@ public class HomeController {
 
     @GetMapping("/")
     public String index(Model model) {
-        List<Product> products = productService.findAll();
+        List<Product> products = productService.getAll();
 
 
         // show the N last products

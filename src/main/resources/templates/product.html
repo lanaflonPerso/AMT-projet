@@ -6,7 +6,7 @@
 <!-- header section start -->
 <div th:replace="fragments/components :: menu"></div>
 <!-- New Arrivals section start -->
-<div class="collection_text">Product name</div>
+<div class="collection_text" th:text="${product.getName()}"></div>
 <!-- New Arrivals section end -->
 <!-- section footer start -->
 <div th:replace="fragments/components :: footer"></div>
