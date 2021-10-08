@@ -7,6 +7,15 @@
 <div th:replace="fragments/components :: menu"></div>
 <!-- New Arrivals section start -->
 <div class="collection_text" th:text="${product.getName()}"></div>
+<div class="product_image"><img th:src="${product.getImageRelativePath()}" th:alt="${product.getName()}"/></div>
+<div class="product_presentation">
+    <div class="product_description" th:text="${product.getDescription()}"></div>
+    <div class="product_price" th:text="Buy it for ${product.getPrice()} CHF"></div>
+    <div class="buy_now_bt">
+        <a href="#"><button class="buy_text" th:text="${product.getPrice()}"></button></a>
+    </div>
+
+</div>
 <!-- New Arrivals section end -->
 <!-- section footer start -->
 <div th:replace="fragments/components :: footer"></div>
