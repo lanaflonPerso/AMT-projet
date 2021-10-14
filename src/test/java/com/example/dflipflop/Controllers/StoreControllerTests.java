@@ -34,8 +34,9 @@ public class StoreControllerTests {
 
     @Test
     public void shouldDisplayProduct() throws Exception {
-        assertTrue(productService.insert(new Product("p1", "produit", 3.5f, "test.png")));
-        this.mockMvc.perform(get("/store/product/0")).andDo(print()).andExpect(status().isOk());
+        productService.insert(new Product("p1", "produit", 3.5f, "test.png"));
+        productService.insert(new Product("p2", "produit", 3.5f, "test.png"));
+        this.mockMvc.perform(get("/store/product/1")).andDo(print()).andExpect(status().isOk());
     }
 
     @Test
