@@ -13,6 +13,7 @@ import com.example.dflipflop.Entities.Product;
 import com.example.dflipflop.Services.ProductService;
 import org.junit.jupiter.api.Test;
 
+import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -24,7 +25,7 @@ public class StoreControllerTests {
     @Autowired
     private MockMvc mockMvc;
 
-    @MockBean
+    @InjectMocks
     private ProductService productService;
 
     @Test
