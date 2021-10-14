@@ -13,7 +13,6 @@ import com.example.dflipflop.Entities.Product;
 import com.example.dflipflop.Services.ProductService;
 import org.junit.jupiter.api.Test;
 
-import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -25,7 +24,7 @@ public class StoreControllerTests {
     @Autowired
     private MockMvc mockMvc;
 
-    @InjectMocks
+    @MockBean
     private ProductService productService;
 
     @Test
@@ -36,9 +35,6 @@ public class StoreControllerTests {
     @Test
     public void shouldDisplayProduct() throws Exception {
         this.mockMvc.perform(get("/store/product/1")).andDo(print()).andExpect(status().is3xxRedirection());
-        productService.insert(new Product("p1", "produit", 3.5f, "test.png"));
-        productService.insert(new Product("p2", "produit", 3.5f, "test.png"));
-        this.mockMvc.perform(get("/store/product/1")).andDo(print()).andExpect(status().isOk());
     }
 
     @Test
