@@ -31,12 +31,13 @@ public class ProductService {
 
         // should we make it return void ?
         public Boolean insert(Product product){
-            try {
+            productRepository.save(product);
+            /*try {
                 productRepository.save(product);
             }
             catch(Exception e){
                 return false;
-            }
+            }*/
             return true;
         }
 
