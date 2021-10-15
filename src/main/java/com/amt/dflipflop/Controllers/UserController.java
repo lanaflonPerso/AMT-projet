@@ -1,4 +1,4 @@
-package com.example.dflipflop.Controllers;
+package com.amt.dflipflop.Controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

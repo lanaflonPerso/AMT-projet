@@ -586,13 +586,15 @@ body{
 	text-align: center;
 }
 .buy_text{
-	width: 32%;
+	width: max-content;
 	height: 50px;
 	color: #ffffff;
 	background-color: #131111;
-	color: #ffffff;
 	font-size: 16pt;	
 	margin-top: 35px;
+    margin-left: 35px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .contact_section{
@@ -775,7 +777,7 @@ a:hover {
     padding: 20px;
 }
 
-.subscribr_bt {
+.subscribe_bt {
     width: 80%;
     float: right;
     background-color: #ff4e5b;
@@ -783,7 +785,6 @@ a:hover {
     height: 50px;
     color: #ffffff;
 }
-
 
 .about_main {
     width: 100%;
@@ -807,4 +808,13 @@ a:hover {
     align-items: end;
     justify-items: end;
     flex-direction: column;
+}
+
+.product_presentation {
+    padding:10%;
+}
+
+.presentation_text {
+    margin-top: 32pt;
+    font-size:14pt;
 }
