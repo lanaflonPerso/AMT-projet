@@ -1,7 +1,7 @@
-package com.example.dflipflop.Controllers;
+package com.amt.dflipflop.Controllers;
 
-import com.example.dflipflop.Entities.Product;
-import com.example.dflipflop.Services.ProductService;
+import com.amt.dflipflop.Entities.Product;
+import com.amt.dflipflop.Services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

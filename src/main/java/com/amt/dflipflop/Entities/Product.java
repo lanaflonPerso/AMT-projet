@@ -1,4 +1,4 @@
-package com.example.dflipflop.Entities;
+package com.amt.dflipflop.Entities;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
