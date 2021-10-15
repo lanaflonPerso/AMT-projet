@@ -1,7 +1,7 @@
-package com.example.dflipflop.Services;
+package com.amt.dflipflop.Services;
 
-import com.example.dflipflop.Entities.Product;
-import com.example.dflipflop.Repositories.ProductRepository;
+import com.amt.dflipflop.Entities.Product;
+import com.amt.dflipflop.Repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
