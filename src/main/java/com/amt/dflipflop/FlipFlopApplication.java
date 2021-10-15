@@ -1,4 +1,4 @@
-package com.example.dflipflop;
+package com.amt.dflipflop;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
