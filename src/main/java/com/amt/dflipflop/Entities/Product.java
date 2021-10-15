@@ -71,7 +71,7 @@ public class Product {
         return price;
     }
 
-    public void setId(Float price) {
+    public void setPrice(Float price) {
         this.price = price;
     }
 
