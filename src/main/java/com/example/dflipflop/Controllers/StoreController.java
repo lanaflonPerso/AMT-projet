@@ -52,6 +52,7 @@ public class StoreController {
     @PostMapping(path="/store/add-product") // Map ONLY POST Requests
     public @ResponseBody
     String addNewProduct (@ModelAttribute("product") Product product, BindingResult result) {
+        System.out.println(product);
         if(result.hasErrors()){
             return "add-product";
         }
