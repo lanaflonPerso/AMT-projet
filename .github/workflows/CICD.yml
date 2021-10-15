@@ -1,4 +1,4 @@
-name: Test Pipeline
+name: CICD Pipeline
 on:
   workflow_dispatch:
   push:
@@ -45,7 +45,7 @@ jobs:
     needs: tests
     #Only run it on the main branch
     if: github.ref == 'refs/heads/main'
-    name: Build
+    name: Build and Deploy
     #Run on Ubuntu using the latest version
     runs-on: ubuntu-latest
     steps:
@@ -64,15 +64,26 @@ jobs:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
+      - name: Write DMZ SSH Key
+        run: echo "${{ secrets.SSH_DMZ_KEY }}" > DMZ_KEY.pem && chmod 400 DMZ_KEY.pem
+      - name: Start DMZ tunnel
+        run: ssh -tt -o StrictHostKeyChecking=no -L 8081:${{ secrets.SSH_EC2_IP }}:8080 ${{ secrets.SSH_DMZ_USER }}@${{ secrets.SSH_DMZ_IP }} -i DMZ_KEY.pem &
+      - name: "Setup maven settings"
+        uses: s4u/maven-settings-action@v2.4.1
+        with:
+          servers: '[{"id": "TomcatServer", "username": "${{ secrets.TOMCAT_USERNAME }}", "password": "${{ secrets.TOMCAT_PASSWORD }}"}]'
       #Build the application using Maven
       - name: Build with Maven
         run: mvn -B package -DskipTests --file pom.xml
       #Build the application using Maven
-      - name: Upload JAR
+      - name: Upload WAR
         #This uploads artifacts from your workflow allowing you to share data between jobs and store data once a workflow is complete.
         uses: actions/upload-artifact@v2
         with:
           #Set artifact name
           name: release
           #From this path
-          path: target/FlipFlop-*-SNAPSHOT.jar
+          path: target/FlipFlop.war
+      #Deploy the app to Tomcat
+      - name: Deploy with Maven
+        run: mvn tomcat7:redeploy-only --file pom.xml

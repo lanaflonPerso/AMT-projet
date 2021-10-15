@@ -1,21 +1,38 @@
-package com.example.dflipflop.Controllers;
-
-import com.example.dflipflop.Entities.Product;
+package com.amt.dflipflop.Controllers;
+import com.amt.dflipflop.Entities.Product;
+import com.amt.dflipflop.Services.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+
 @Controller
 public class StoreController {
 
+    @Autowired
+    private ProductService productService;
+
     @GetMapping("/store")
     public String getStorePage(Model model) {
+
+        ArrayList<Product> products = productService.getAll();
+        model.addAttribute("products", products);
         return "store";
     }
 
     @GetMapping("/store/product/{id}")
     public String getStoreProduct(@PathVariable("id") Integer productId, Model model) {
+
+        Product product = productService.get(productId);
+
+        if (product == null) {
+            return "redirect:/store/product";
+        }
+
+        model.addAttribute("product", product);
         return "product";
     }
 

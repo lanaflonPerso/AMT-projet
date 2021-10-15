@@ -1,13 +1,11 @@
-package com.example.dflipflop.Controllers;
+package com.amt.dflipflop.Controllers;
 
-import static org.hamcrest.Matchers.containsString;
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.example.dflipflop.Controllers.StoreController;
+import com.amt.dflipflop.Services.ProductService;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +19,9 @@ public class StoreControllerTests {
     @Autowired
     private MockMvc mockMvc;
 
+    @MockBean
+    private ProductService productService;
+
     @Test
     public void shouldDisplayStore() throws Exception {
         this.mockMvc.perform(get("/store")).andDo(print()).andExpect(status().isOk());
@@ -28,7 +29,7 @@ public class StoreControllerTests {
 
     @Test
     public void shouldDisplayProduct() throws Exception {
-        this.mockMvc.perform(get("/store/product/0")).andDo(print()).andExpect(status().isOk());
+        this.mockMvc.perform(get("/store/product/1")).andDo(print()).andExpect(status().is3xxRedirection());
     }
 
     @Test
