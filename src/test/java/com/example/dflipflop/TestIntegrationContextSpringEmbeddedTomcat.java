@@ -26,16 +26,22 @@ class TestIntegrationContextSpringEmbeddedTomcat {
     @Autowired
     private TestRestTemplate restTemplate;
 
+
+    /**
+     * Test that the server tomcat works
+     */
     @Test
     void goodTest(){
         //String response = this.restTemplate.getForObject("http://localhost:" + port + "/",   String.class);
-
         ResponseEntity<String> response = restTemplate.
                 getForEntity("http://localhost:" + port + "/", String.class);
         assertEquals(response.getStatusCode(), HttpStatus.OK);
-       // assertEquals(response, "Hello World");
     }
 
+
+    /**
+     * Test that a request to a non-existent page returns a 4040 error
+     */
     @Test
     void badTest(){
         ResponseEntity<String> response = restTemplate.
