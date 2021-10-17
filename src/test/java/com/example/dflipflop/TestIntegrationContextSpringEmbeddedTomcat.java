@@ -1,6 +1,15 @@
+/**
+ * Date de création     : 16.10.2021
+ * Dernier contributeur : Ryan Sauge
+ * Groupe               : AMT-D-Flip-Flop
+ * Description          : Tester la connexion avec tomcat
+ * Remarque             : -
+ * Sources :
+ * https://www.baeldung.com/spring-boot-testresttemplate
+ */
+
 package com.example.dflipflop;
 
-import org.assertj.core.util.VisibleForTesting;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -8,15 +17,9 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.ContextConfiguration;
-
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
-/*
-Source :
-https://www.baeldung.com/spring-boot-testresttemplate
- */
+
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class TestIntegrationContextSpringEmbeddedTomcat {
 
