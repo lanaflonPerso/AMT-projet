@@ -59,8 +59,7 @@ public class Product {
     }
 
     public String getImageRelativePath() {
-        // assuming we have only PNG files
-        return "images/" + imageName + ".png";
+        return "images/" + imageName;
     }
 
     public void setImageName(String imageName) {
