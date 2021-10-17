@@ -2,7 +2,7 @@
  * Date de création     : 16.10.2021
  * Dernier contributeur : Ryan Sauge
  * Groupe               : AMT-D-Flip-Flop
- * Description          : Tester ProductService
+ * Description          : Tester ProductService et StoreController
  * Remarque             : -
  * Sources :
  * https://www.baeldung.com/junit-5-runwith
