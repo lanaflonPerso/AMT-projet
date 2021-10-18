@@ -60,6 +60,14 @@ public class StoreController {
         return "add-product";
     }
 
+    /**
+     *
+     * @param product The product get from the form (front-end)
+     * @param multipartFile The stream for the picture
+     * @param result State of the request
+     * @return The redirection to a page
+     * @throws IOException If write fail
+     */
     @PostMapping(path="/store/add-product") // Map ONLY POST Requests
     public @ResponseBody
     String addNewProduct (@ModelAttribute("product") Product product, @RequestParam("image") MultipartFile multipartFile, BindingResult result) throws IOException {
