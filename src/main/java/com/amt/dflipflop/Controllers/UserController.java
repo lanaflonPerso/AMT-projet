@@ -3,9 +3,12 @@ package com.amt.dflipflop.Controllers;
 import com.amt.dflipflop.Entities.User;
 import com.amt.dflipflop.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Properties;
 
 @Controller
 public class UserController {
@@ -62,4 +65,25 @@ public class UserController {
         return "login";
     }
 
+    @GetMapping("/register")
+    public String showRegistrationForm(Model model) {
+        model.addAttribute("user", new User());
+
+        return "register";
+    }
+
+    /*
+    https://www.codejava.net/frameworks/spring-boot/user-registration-and-login-tutorial
+     */
+    @PostMapping("/process_register")
+    public String processRegister(User user) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encodedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
+
+
+        userRepository.save(user);
+
+        return "register_success";
+    }
 }

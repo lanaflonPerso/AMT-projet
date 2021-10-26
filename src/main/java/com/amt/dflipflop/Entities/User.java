@@ -1,5 +1,7 @@
 package com.amt.dflipflop.Entities;
 
+import org.hibernate.annotations.Table;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;

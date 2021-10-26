@@ -6,18 +6,11 @@
 <!-- header section start -->
 <div th:replace="fragments/components :: menu"></div>
 <!-- New Arrivals section start -->
-<div class="collection_text">Login</div>
-<div th:if="${param.error}">
-Invalid username and password.
+<!-- Source https://www.codejava.net/frameworks/spring-boot/user-registration-and-login-tutorial -->
+<div class="container text-center">
+    <h3>You have signed up successfully!</h3>
+    <!-- <h4><a th:href="/@{/login}">Click here to Login</a></h4>-->
 </div>
-<div th:if="${param.logout}">
-    You have been logged out.
-</div>
-<form th:action="@{/login}" method="post">
-    <div><label> User Name : <input type="text" name="username"/> </label></div>
-    <div><label> Password: <input type="password" name="password"/> </label></div>
-    <div><input type="submit" value="Sign In"/></div>
-</form>
 <!-- New Arrivals section end -->
 <!-- section footer start -->
 <div th:replace="fragments/components :: footer"></div>
