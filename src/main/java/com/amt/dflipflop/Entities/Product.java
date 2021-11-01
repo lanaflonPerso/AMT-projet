@@ -59,8 +59,7 @@ public class Product {
     }
 
     public String getImageRelativePath() {
-        // assuming we have only PNG files
-        return "images/" + imageName + ".png";
+        return "images/" + imageName;
     }
 
     public void setImageName(String imageName) {
@@ -71,7 +70,7 @@ public class Product {
         return price;
     }
 
-    public void setId(Float price) {
+    public void setPrice(Float price) {
         this.price = price;
     }
 
