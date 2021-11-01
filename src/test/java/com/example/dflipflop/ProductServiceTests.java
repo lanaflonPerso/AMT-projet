@@ -6,6 +6,7 @@
  * Remarque             : -
  * Sources :
  * https://www.baeldung.com/junit-5-runwith
+ * https://www.codejava.net/frameworks/spring-boot/user-registration-and-login-tutorial
  */
 
 package com.example.dflipflop;
@@ -16,36 +17,46 @@ import com.example.dflipflop.Services.ProductService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.boot.test.autoconfigure.web.servlet.*;
 import org.springframework.boot.test.mock.mockito.*;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ArrayList;
 
-@ExtendWith(SpringExtension.class)
-@WebMvcTest(StoreController.class)
+@DataJpaTest
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@Rollback(false)
 public class ProductServiceTests {
 
+    /*@Autowired
+    private MockMvc mvc;*/
+
     @Autowired
-    private MockMvc mvc;
+    private TestEntityManager entityManager;
+
 
     @MockBean
     private ProductService productService;
 
     @Test
     public void testExample() throws Exception {
-        this.productService.insert(new Product("Honda", "Civic", (float) 12.5, ""));
+        Product savedUser = this.productService.insert(new Product("Honda", "Civic", (float) 12.5, ""));
         ArrayList<Product> p = productService.getAll();
         boolean find = false;
-        for (Product element : p){
+
+        Product existUser = entityManager.find(Product.class, savedUser.getId());
+        /*for (Product element : p){
             if (element.getName().equals("Honda")){
                 find = true;
                 System.out.println(element);
                 break;
             }
-        }
-        if(!find){
+        }*/
             throw new Exception("Product not found");
         }
 
