@@ -1,3 +1,14 @@
+/**
+ * Date de création     : 16.10.2021
+ * Dernier contributeur : Ryan Sauge
+ * Groupe               : AMT-D-Flip-Flop
+ * Description          : Tester la connexion avec tomcat
+ * Remarque             : -
+ * Sources :
+ * https://www.baeldung.com/spring-boot-testresttemplate
+ */
+
+
 package com.amt.dflipflop.Entities;
 
 /*
