@@ -1,6 +1,7 @@
 package com.amt.dflipflop.Controllers;
 
 import com.amt.dflipflop.Entities.Category;
+import com.amt.dflipflop.Entities.Product;
 import com.amt.dflipflop.Services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,33 +23,30 @@ public class CategoriesController {
     @Autowired
     private CategoryService categoryService;
 
-    @GetMapping("/categories/")
+    @GetMapping("/categories")
     public String displayCategoriesAndForm(Model model) {
         ArrayList<Category> categories = categoryService.getAll();
         model.addAttribute("categories", categories);
-
-
-        model.addAttribute("categories", categories);
+        model.addAttribute("category", new Category());
         return "categories";
     }
 
     /**
      *
      * @param category The category get from the form (front-end)
-     * @param multipartFile The stream for the picture
      * @param result State of the request
      * @return The redirection to a page
      * @throws IOException If write fail
      */
     @PostMapping(path="/categories/add-category") // Map ONLY POST Requests
     public @ResponseBody
-    String addNewCategory (@ModelAttribute("category") Category category, @RequestParam("image") MultipartFile multipartFile, BindingResult result) throws IOException {
+    String addNewCategory (@ModelAttribute Category category, BindingResult result) throws IOException {
 
         // Add the category via a category service
         categoryService.insert(category);
 
         if(result.hasErrors()){
-            return "categories/add-category";
+            return "categories";
         }
 
         return "<head>\n" +
