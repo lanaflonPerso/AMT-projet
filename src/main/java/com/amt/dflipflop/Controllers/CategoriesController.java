@@ -32,7 +32,6 @@ public class CategoriesController {
     }
 
     /**
-     *
      * @param category The category get from the form (front-end)
      * @param result State of the request
      * @return The redirection to a page
@@ -48,6 +47,22 @@ public class CategoriesController {
         if(result.hasErrors()){
             return "categories";
         }
+
+        return "<head>\n" +
+                "  <meta http-equiv=\"refresh\" content=\"0; URL=/categories\" />\n" +
+                "</head>";
+    }
+
+    /**
+     * @return The redirection to a page
+     * @throws IOException If suppress fail
+     */
+    @GetMapping(path="/categories/remove") // Map ONLY POST Requests
+    public @ResponseBody
+    String removeCategory (@RequestParam(value = "id") Integer id) throws IOException {
+
+        // Add the category via a category service
+        categoryService.remove(id);
 
         return "<head>\n" +
                 "  <meta http-equiv=\"refresh\" content=\"0; URL=/categories\" />\n" +

@@ -31,7 +31,10 @@ public class CategoryService {
 
     public Category insert(Category category){
         return categoryRepository.save(category);
+    }
 
+    public void remove(Integer id){
+        categoryRepository.deleteById(id);
     }
 
     public Long count() {
