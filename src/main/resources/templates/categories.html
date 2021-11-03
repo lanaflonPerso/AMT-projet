@@ -17,6 +17,9 @@
         <div th:each="cat : ${categories}" class="col-sm-4">
             <div class="best_shoes">
                 <p class="item_name" th:text="${cat.getName()}"></p>
+                <a  th:href="'/categories/remove?id=' + ${cat.getId()}">
+                    <button>Remove</button>
+                </a>
             </div>
         </div>
     </div>
