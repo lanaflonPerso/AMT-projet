@@ -33,40 +33,35 @@ public class CategoriesController {
 
     /**
      * @param category The category get from the form (front-end)
-     * @param result State of the request
      * @return The redirection to a page
      * @throws IOException If write fail
      */
     @PostMapping(path="/categories/add-category") // Map ONLY POST Requests
-    public @ResponseBody
-    String addNewCategory (@ModelAttribute Category category, BindingResult result) throws IOException {
+    public String addNewCategory (@ModelAttribute Category category) throws IOException {
+
+
+        if(categoryService.categoryExists(category.getName())){
+            return "redirect:/categories";
+        }
 
         // Add the category via a category service
         categoryService.insert(category);
-
-        if(result.hasErrors()){
-            return "categories";
-        }
-
-        return "<head>\n" +
-                "  <meta http-equiv=\"refresh\" content=\"0; URL=/categories\" />\n" +
-                "</head>";
+        return "redirect:/categories";
     }
 
     /**
+     * Called with /categories/remove?id=N
      * @return The redirection to a page
      * @throws IOException If suppress fail
      */
     @GetMapping(path="/categories/remove") // Map ONLY POST Requests
-    public @ResponseBody
+    public
     String removeCategory (@RequestParam(value = "id") Integer id) throws IOException {
 
         // Add the category via a category service
         categoryService.remove(id);
 
-        return "<head>\n" +
-                "  <meta http-equiv=\"refresh\" content=\"0; URL=/categories\" />\n" +
-                "</head>";
+        return "redirect:/categories";
     }
 
 }
