@@ -1,7 +1,5 @@
-package com.amt.dflipflop.Services;
+package com.amt.dflipflop.Entities;
 
-import com.amt.dflipflop.Entities.CustomUserDetails;
-import com.amt.dflipflop.Entities.User;
 import com.amt.dflipflop.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
