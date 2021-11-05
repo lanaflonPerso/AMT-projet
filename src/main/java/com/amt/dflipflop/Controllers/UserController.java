@@ -51,14 +51,14 @@ public class UserController {
     @GetMapping("/login")
     public String login(Model model) {
         //model.addAttribute("name", name);
-        return "login";
+        return "authentification/login";
     }
 
     @GetMapping("/register")
     public String showRegistrationForm(Model model) {
         model.addAttribute("user", new User());
 
-        return "signup_form.html";
+        return "authentification/signup_form.html";
     }
 
     /*
