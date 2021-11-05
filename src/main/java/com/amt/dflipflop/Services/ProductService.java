@@ -43,5 +43,11 @@ public class ProductService {
 
         public Long count() {
             return productRepository.count();
+
+
+        }
+
+        public Product update(Product product){
+            return productRepository.save(product);
         }
 }
