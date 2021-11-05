@@ -55,8 +55,7 @@ public class CategoriesController {
      * @throws IOException If suppress fail
      */
     @GetMapping(path="/categories/remove") // Map ONLY POST Requests
-    public
-    String removeCategory (@RequestParam(value = "id") Integer id) throws IOException {
+    public String removeCategory (@RequestParam(value = "id") Integer id) throws IOException {
 
         // Add the category via a category service
         categoryService.remove(id);
