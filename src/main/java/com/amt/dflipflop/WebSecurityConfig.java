@@ -1,32 +1,19 @@
-/**
- * Date de création     : 16.10.2021
- * Dernier contributeur : Ryan Sauge
- * Groupe               : AMT-D-Flip-Flop
- * Description          : Tester la connexion avec tomcat
- * Remarque             : -
- * Sources :
- * https://www.baeldung.com/spring-boot-testresttemplate
- */
-
 package com.amt.dflipflop;
-/*
-https://www.codejava.net/frameworks/spring-boot/user-registration-and-login-tutorial
- */
+
 import javax.sql.DataSource;
-import com.amt.dflipflop.Services.CustomUserDetailsService;
+
+
+import com.amt.dflipflop.Entities.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
-
 
 @Configuration
 @EnableWebSecurity
@@ -34,23 +21,35 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private DataSource dataSource;
 
-
+    @Bean
+    public UserDetailsService userDetailsService() {
+        return new CustomUserDetailsService();
+    }
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
+
         return new BCryptPasswordEncoder();
     }
 
+
+    /*
+    https://www.baeldung.com/spring-security-registration-password-encoding-bcrypt
+     */
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
         authProvider.setUserDetailsService(userDetailsService());
         authProvider.setPasswordEncoder(passwordEncoder());
-
         return authProvider;
     }
 
-    /*@Override
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.authenticationProvider(authenticationProvider());
+    }
+
+    @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/users").authenticated()
@@ -62,47 +61,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
                 .logout().logoutSuccessUrl("/").permitAll();
-    }*/
-/*
-  .antMatchers("/", "/home",  "/", "/css/*", "/js/*", "/images/*", "/demo/*", "login",
-                            "/register", "/store*",
-                    "/register_success", "/product", "/products").permitAll()
-                    .anyRequest().authenticated()
- */
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http
-                .authorizeRequests()
-                .antMatchers("/users").authenticated()
-                .anyRequest().permitAll()
-                    .and()
-                .formLogin()
-                    .loginPage("/login")
-                    .permitAll()
-                    .usernameParameter("username")
-                    .and()
-                .logout()
-                    .permitAll();
-        /*http
-                .authorizeRequests()
-                .antMatchers("/**", "/css/*", "/js/*", "/images/*", "/demo/*").permitAll()
-                .anyRequest().authenticated();
-        http.csrf().disable(); // Disable csrf for now*/
     }
-    @Bean
-    public UserDetailsService userDetailsService() {
-        return new CustomUserDetailsService();
-    }
-    /*@Bean
-    @Override
-    public UserDetailsService userDetailsService() {
-        UserDetails user =
-                User.withDefaultPasswordEncoder()
-                        .username("username")
-                        .password("password")
-                        .roles("USER")
-                        .build();
-        //TODO: Change withDefaultPasswordEncoder
-        return new InMemoryUserDetailsManager(user);
-    }*/
+
+
 }
