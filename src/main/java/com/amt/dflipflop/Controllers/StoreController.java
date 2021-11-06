@@ -34,9 +34,17 @@ public class StoreController {
     private ProductService productService;
 
     @GetMapping("/store")
-    public String getStorePage(Model model) {
+    public String getStorePage(@RequestParam(value = "cat", required = false) Integer catId, Model model) {
 
-        ArrayList<Product> products = productService.getAll();
+        ArrayList<Product> products;
+
+        if(catId != null){
+            products = productService.getProductsByCategory(catId);
+        }
+        else {
+            products = productService.getAll();
+        }
+
         model.addAttribute("products", products);
         return "store";
     }
