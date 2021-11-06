@@ -14,6 +14,18 @@
     </div>
 </div>
 
+<form action="/store" method="get">
+    <select name="cat" hidden="true" selected>
+        <option th:each="cat : ${categories}"
+                th:value="${cat.getId()}"
+                th:text="${cat.getName()}"
+                th:selected="${cat.getId() == selected}">
+        </option>
+    </select>
+    <button type="submit" class="btn btn-primary">Filter</button>
+</form>
+
+
 <div class="layout_padding gallery_section">
     <div th:replace="fragments/gallery :: list_items(${products})"></div>
 </div>
