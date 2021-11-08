@@ -1,5 +1,7 @@
 package com.amt.dflipflop.Controllers;
+import com.amt.dflipflop.Entities.Category;
 import com.amt.dflipflop.Entities.Product;
+import com.amt.dflipflop.Services.CategoryService;
 import com.amt.dflipflop.Services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,12 +34,26 @@ public class StoreController {
 
     @Autowired
     private ProductService productService;
+    @Autowired
+    private CategoryService categoryService;
 
     @GetMapping("/store")
-    public String getStorePage(Model model) {
+    public String getStorePage(@RequestParam(value = "cat", required = false) Integer catId, Model model) {
 
-        ArrayList<Product> products = productService.getAll();
+        ArrayList<Product> products;
+        ArrayList<Category> categories = categoryService.getAll();
+
+        if(catId != null){
+            products = productService.getProductsByCategory(catId);
+            model.addAttribute("selected", catId);
+        }
+        else {
+            products = productService.getAll();
+        }
+
+
         model.addAttribute("products", products);
+        model.addAttribute("categories", categories);
         return "store";
     }
 
@@ -56,7 +72,9 @@ public class StoreController {
 
     @GetMapping("/store/add-product")
     public String getAddProductPage(Model model) {
+        ArrayList<Category> categories = categoryService.getAll();
         model.addAttribute("product", new Product());
+        model.addAttribute("categories", categories);
         return "add-product";
     }
 
@@ -69,8 +87,7 @@ public class StoreController {
      * @throws IOException If write fail
      */
     @PostMapping(path="/store/add-product") // Map ONLY POST Requests
-    public @ResponseBody
-    String addNewProduct (@ModelAttribute("product") Product product, @RequestParam("image") MultipartFile multipartFile, BindingResult result) throws IOException {
+    public String addNewProduct (@ModelAttribute("product") Product product, @RequestParam("image") MultipartFile multipartFile, BindingResult result) throws IOException {
         String uploadDir = "src/main/resources/static/images";
         String fileName;
 
@@ -97,9 +114,7 @@ public class StoreController {
             return "add-product";
         }
 
-        return "<head>\n" +
-                "  <meta http-equiv=\"refresh\" content=\"0; URL=/store/add-product\" />\n" +
-                "</head>";
+        return "redirect:/store";
     }
 
 }
