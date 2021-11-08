@@ -41,7 +41,7 @@ public class StoreController {
     public String getStorePage(@RequestParam(value = "cat", required = false) Integer catId, Model model) {
 
         ArrayList<Product> products;
-        ArrayList<Category> categories = categoryService.getAll();
+        ArrayList<Category> categories = categoryService.getNonEmpty();
 
         if(catId != null){
             products = productService.getProductsByCategory(catId);
