@@ -15,7 +15,7 @@
 </div>
 
 <form action="/store" method="get">
-    <select name="cat" hidden="true" selected>
+    <select name="cat" hidden>
         <option th:each="cat : ${categories}"
                 th:value="${cat.getId()}"
                 th:text="${cat.getName()}"

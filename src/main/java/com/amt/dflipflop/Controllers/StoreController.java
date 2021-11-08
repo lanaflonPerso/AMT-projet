@@ -72,7 +72,9 @@ public class StoreController {
 
     @GetMapping("/store/add-product")
     public String getAddProductPage(Model model) {
+        ArrayList<Category> categories = categoryService.getAll();
         model.addAttribute("product", new Product());
+        model.addAttribute("categories", categories);
         return "add-product";
     }
 
