@@ -31,21 +31,20 @@ public class ProductService {
         }
 
         // should we make it return void ?
-        public Boolean insert(Product product){
-            productRepository.save(product);
+        public Product insert(Product product){
+            return productRepository.save(product);
             /*try {
                 productRepository.save(product);
             }
             catch(Exception e){
                 return false;
             }*/
-            return true;
         }
 
         public Long count() {
             return productRepository.count();
         }
-
+  
         public Product update(Product product){
             return productRepository.save(product);
         }
