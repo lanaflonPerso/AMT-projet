@@ -27,6 +27,9 @@
 </form>
 
 <div class="layout_padding gallery_section">
+    <div th:if="${products.isEmpty()}">
+        <h1>This category doesn't contain any product</h1>
+    </div>
     <div th:replace="fragments/gallery :: list_items(${products})"></div>
 </div>
 <!-- content end -->
