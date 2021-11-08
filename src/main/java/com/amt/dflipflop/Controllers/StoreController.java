@@ -69,8 +69,7 @@ public class StoreController {
      * @throws IOException If write fail
      */
     @PostMapping(path="/store/add-product") // Map ONLY POST Requests
-    public @ResponseBody
-    String addNewProduct (@ModelAttribute("product") Product product, @RequestParam("image") MultipartFile multipartFile, BindingResult result) throws IOException {
+    public String addNewProduct (@ModelAttribute("product") Product product, @RequestParam("image") MultipartFile multipartFile, BindingResult result) throws IOException {
         String uploadDir = "src/main/resources/static/images";
         String fileName;
 
@@ -97,9 +96,7 @@ public class StoreController {
             return "add-product";
         }
 
-        return "<head>\n" +
-                "  <meta http-equiv=\"refresh\" content=\"0; URL=/store/add-product\" />\n" +
-                "</head>";
+        return "redirect:/store";
     }
 
 }

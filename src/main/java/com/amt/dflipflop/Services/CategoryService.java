@@ -37,6 +37,15 @@ public class CategoryService {
         categoryRepository.deleteById(id);
     }
 
+    public boolean categoryExists(String name) {
+        ArrayList<Category> categories = getAll();
+        for( Category cat : categories){
+            if (cat.getName().equals(name))
+                return true;
+        }
+        return false;
+    }
+
     public Long count() {
         return categoryRepository.count();
     }
