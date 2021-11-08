@@ -27,7 +27,7 @@
 
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(StoreController.class)
-public class ProductServiceTests {
+public class ProductServiceTestOld {
 
     @Autowired
     private MockMvc mvc;
@@ -35,7 +35,7 @@ public class ProductServiceTests {
     @MockBean
     private ProductService productService;
 
-    @Test
+
     public void testExample() throws Exception {
         this.productService.insert(new Product("Honda", "Civic", (float) 12.5, ""));
         ArrayList<Product> p = productService.getAll();

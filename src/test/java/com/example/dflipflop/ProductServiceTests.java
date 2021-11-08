@@ -25,6 +25,10 @@ import org.springframework.boot.test.mock.mockito.*;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+import  org.junit.jupiter.api.Assertions;
+
+
+
 
 import java.util.ArrayList;
 
@@ -45,11 +49,15 @@ public class ProductServiceTests {
 
     @Test
     public void testExample() throws Exception {
-        Product savedUser = this.productService.insert(new Product("Honda", "Civic", (float) 12.5, ""));
-        ArrayList<Product> p = productService.getAll();
-        boolean find = false;
+        Product p = new Product("Honda", "Civic", (float) 12.5, "");
+        Product savedUser = this.productService.insert(p);
+        //ArrayList<Product> p = productService.getAll();
+        //boolean find = false;
 
+        Assertions.assertNotNull(savedUser);
         Product existUser = entityManager.find(Product.class, savedUser.getId());
+        Assertions.assertNotNull(existUser);
+
         /*for (Product element : p){
             if (element.getName().equals("Honda")){
                 find = true;
@@ -57,8 +65,7 @@ public class ProductServiceTests {
                 break;
             }
         }*/
-            throw new Exception("Product not found");
-        }
+            //throw new Exception("Product not found");
 
         /*
         TODO: function to delete a product in the database
