@@ -1,6 +1,5 @@
 /**
  * Date de création     : 16.10.2021
- * Dernier contributeur : Ryan Sauge
  * Groupe               : AMT-D-Flip-Flop
  * Description          : Tester le HomeController
  * Remarque             : -
@@ -26,7 +25,6 @@ class FlipFlopApplicationTests {
      */
     @Test
     void contextLoads() {
-
         MatcherAssert.assertThat(controller, is(notNullValue()));
     }
 

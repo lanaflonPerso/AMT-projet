@@ -1,6 +1,5 @@
 /**
  * Date de création     : 16.10.2021
- * Dernier contributeur : Ryan Sauge
  * Groupe               : AMT-D-Flip-Flop
  * Description          : Tester la connexion avec tomcat
  * Remarque             : -
@@ -35,7 +34,6 @@ class TestIntegrationContextSpringEmbeddedTomcat {
      */
     @Test
     void goodTest(){
-        //String response = this.restTemplate.getForObject("http://localhost:" + port + "/",   String.class);
         ResponseEntity<String> response = restTemplate.
                 getForEntity("http://localhost:" + port + "/", String.class);
         assertEquals(response.getStatusCode(), HttpStatus.OK);
