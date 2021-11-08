@@ -7,7 +7,7 @@
  * https://www.baeldung.com/spring-boot-testresttemplate
  */
 
-package com.example.dflipflop;
+package com.amt.dflipflop;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

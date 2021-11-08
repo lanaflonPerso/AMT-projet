@@ -7,7 +7,7 @@
 
 package com.amt.dflipflop;
 
-import com.example.dflipflop.Controllers.HomeController;
+import com.amt.dflipflop.Controllers.HomeController;
 import org.hamcrest.MatcherAssert;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -9,12 +9,12 @@
  * junit test : https://www.arhohuttunen.com/junit-5-assertions/
  */
 
-package com.example.dflipflop;
+package com.amt.dflipflop;
 
 
-import com.example.dflipflop.Entities.Product;
-import com.example.dflipflop.Repositories.ProductRepository;
-import com.example.dflipflop.Services.ProductService;
+import com.amt.dflipflop.Entities.Product;
+import com.amt.dflipflop.Repositories.ProductRepository;
+import com.amt.dflipflop.Services.ProductService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
