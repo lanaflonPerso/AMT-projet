@@ -1,5 +1,6 @@
 package com.amt.dflipflop.Services;
 
+import com.amt.dflipflop.Entities.Category;
 import com.amt.dflipflop.Entities.Product;
 import com.amt.dflipflop.Repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,8 +61,9 @@ public class ProductService {
             ArrayList<Product> filtered = new ArrayList<>();
 
             for(Product product : products){
+                ArrayList<Integer> categories = product.getCategoriesId();
                 // .equals because it could be null
-                if(product.getCategory() != null && Objects.equals(product.getCategory().getId(), cat)){
+                if(!categories.isEmpty() && categories.contains(cat)){
                     filtered.add(product);
                 }
             }

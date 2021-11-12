@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.nio.file.*;
+import java.util.HashSet;
 
 @Controller
 public class CategoriesController {
@@ -85,7 +86,33 @@ public class CategoriesController {
             return "redirect:/store";
         }
 
-        product.setCategory(category);
+        product.addCategory(category);
+        productService.update(product);
+
+        return "redirect:/store/product/" + productId;
+    }
+
+    @PostMapping(path="/categories/set_categories")
+    public String setCategories (
+            @RequestParam(value = "product") Integer productId,
+            @RequestParam(value = "cat") ArrayList<Integer> categoriesId) throws IOException {
+
+        Product product = productService.get(productId);
+
+        HashSet<Category> categories = new HashSet<Category>();
+        for(int id: categoriesId){
+            Category category = categoryService.get(id);
+            if(category != null){
+                categories.add(category);
+            }
+        }
+
+        if (product == null || categories.isEmpty())
+        {
+            return "redirect:/store";
+        }
+
+        product.setCategories(categories);
         productService.update(product);
 
         return "redirect:/store/product/" + productId;
