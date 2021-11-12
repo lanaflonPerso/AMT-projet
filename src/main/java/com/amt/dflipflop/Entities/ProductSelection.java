@@ -27,8 +27,6 @@ public class ProductSelection{
         return quantity;
     }
 
-    @OneToOne
-    @JoinColumn(name = "product_id", nullable = false)
     public Product getProduct() {
         return product;
     }
@@ -37,6 +35,9 @@ public class ProductSelection{
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
 
+    @OneToOne
+    @JoinColumn(name = "product_id", nullable = false)
     private Product product;
+
     private Integer quantity;
 }

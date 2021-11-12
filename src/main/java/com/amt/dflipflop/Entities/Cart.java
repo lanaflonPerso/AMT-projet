@@ -12,6 +12,7 @@ public class Cart {
     // Add user
     }
 
+    // Use the user as the id
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
@@ -36,5 +37,17 @@ public class Cart {
 
     public List<ProductSelection> getSelections() {
         return selections;
+    }
+
+    public void addSelection(ProductSelection selection) {
+        this.selections.add(selection);
+    }
+
+    public void clearSelections() {
+        this.selections.clear();
+    }
+
+    public void setSelections(List<ProductSelection> selections) {
+        this.selections = selections;
     }
 }
