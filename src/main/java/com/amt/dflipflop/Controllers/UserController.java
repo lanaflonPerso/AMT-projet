@@ -43,7 +43,7 @@ public class UserController {
         List<User> listUsers = userRepository.findAll();
         model.addAttribute("listUsers", listUsers);
 
-        return "users";
+        return "authentification/users";
     }
 
 
@@ -70,6 +70,6 @@ public class UserController {
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
         userRepository.save(user);
-        return "register_success";
+        return "authentification/register_success";
     }
 }
