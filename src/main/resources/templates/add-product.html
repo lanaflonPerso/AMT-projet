@@ -16,7 +16,7 @@
                 <input type="text" class="form-control" id="pName" th:field="*{name}" required>
             </div>
             <div class="form-group">
-                <label for="pPrice">Price</label>
+                <label for="pPrice">Price (CHF)</label>
                 <input type="number" min="0" class="form-control" id="pPrice" th:field="*{price}" required>
             </div>
             <div class="form-group">
@@ -26,6 +26,16 @@
             <div class="form-group">
                 <label for="pPicture">Product Picture</label>
                 <input type="file" class="form-control-file" name="image" id="pPicture">
+            </div>
+            <div class="form-group">
+                <label for="pCategory">Category</label>
+                <select name="cat" th:field="*{category}" hidden id="pCategory">
+                    <option th:each="cat : ${categories}"
+                            th:value="${cat.getId()}"
+                            th:text="${cat.getName()}"
+                    >
+                    </option>
+                </select>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>

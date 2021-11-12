@@ -18,7 +18,8 @@
             <div class="number_text"><strong>CHF <span style="color: #0a0506" th:text="${product.getPrice()}"></span></strong></div>
             <button class="buy_text">Add to shopping cart</button>
         </div>
-        <div class="presentation_text" th:text="${product.getDescription()}"></div>
+        <div class="presentation_text" th:text="${product.getDescription()}"></div><br/>
+        <div class="presentation_text" th:text="' (' + ${product.getCategoryName()} + ')'"></div>
     </div>
 </div>
 
