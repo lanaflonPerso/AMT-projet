@@ -1,10 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>cart</title>
-</head>
-<body>
-<h1>Cart</h1>
+<head th:replace="fragments/components :: head('Cart')"></head>
+<!-- body -->
+<body class="main-layout">
+<!-- header section start -->
+<div th:replace="fragments/components :: menu"></div>
+<!-- content start -->
+<div class="collection_text">Shopping Cart</div>
+<div class="collection_section layout_padding">
+    <div class="container">
+        <h1 class="new_text"><strong>Products in ya Shopping Cart</strong></h1>
+    </div>
+</div>
+
+<form action="/cart" method="get">
+    <table>
+        <tr>
+            <th>Image</th>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Sun total</th>
+            <th>ADD</th>
+            <th>SUB</th>
+        </tr>
+        <tr th:each="itemCart: ${itemCarts}">
+
+            <td th:text="${itemCart.product.imageName}" />
+            <td th:text="${itemCart.product.name}" />
+            <td th:text="${itemCart.product.price}" />
+            <td th:text="${itemCart.qty}" />
+            <td th:text="${itemCart.qty * itemCart.product.price}" />
+            <td>
+                <button type="submit"  > + </button>
+            </td>
+        </tr>
+    </table>
+    <table>
+        <tr>
+            <th>Total</th>
+            <td th:text="${total}" />
+        </tr>
+    </table>
+</form>
+
+
+<!-- content end -->
+<!-- section footer start -->
+<div th:replace="fragments/components :: footer"></div>
+<div th:replace="fragments/components :: copyright"></div>
+<div th:replace="fragments/components :: scripts"></div>
 </body>
 </html>

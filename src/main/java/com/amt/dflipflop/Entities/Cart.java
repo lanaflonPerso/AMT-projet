@@ -1,7 +1,8 @@
 package com.amt.dflipflop.Entities;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Cart {
@@ -9,18 +10,13 @@ public class Cart {
     // needed for SpringBoot Hibernate to create objects
     public Cart() {}
 
-    public Cart(Integer userID){
-        this.userID = userID;
-    }
-
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
 
-    private Integer userID;
 
     @OneToMany
-    private Set<Product> employeeList;
+    private List<ItemCart> cartList = new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -30,12 +26,22 @@ public class Cart {
         this.id = id;
     }
 
-    public Integer getUserId() {
-        return userID;
-    }
 
-    public void setUserID(Integer userID) {
-        this.userID = userID;
+    public ItemCart getProductById(Integer id){
+        return cartList.get(id);
+    }
+    public void addProduct(ItemCart product){
+        cartList.add(product);
+    }
+    public Integer nbProduct(){
+        return cartList.size();
+    }
+    public List<ItemCart> getItemsCart(){
+        List<ItemCart> itemCart = new ArrayList<>();
+        for(int i = 0; i < cartList.size(); ++i){
+            itemCart.add(this.getProductById(i));
+        }
+        return itemCart;
     }
 
 }
