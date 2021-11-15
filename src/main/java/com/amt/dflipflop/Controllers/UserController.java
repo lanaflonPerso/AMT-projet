@@ -75,7 +75,7 @@ public class UserController {
     public String showRegistrationForm(Model model) {
         model.addAttribute("user", new User());
 
-        return "authentification/signup_form.html";
+        return "authentification/signup_form";
     }
 
     /*
@@ -108,8 +108,15 @@ public class UserController {
         if (result.getStatusCode() == HttpStatus.OK) {
             User e = result.getBody();
             System.out.println("(Client Side) Employee Created: "+ e.getUsername());
-        }
 
-        return "authentification/register_success";
+            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+            String encodedPassword = passwordEncoder.encode(user.getPassword());
+            user.setPassword(encodedPassword);
+            userRepository.save(user);
+            return "authentification/register_success";
+
+        }else{
+            return "authentification/signup_form";
+        }
     }
 }

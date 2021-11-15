@@ -1,3 +1,15 @@
+/**
+ * Date de création     : 15.11.2021
+ * Groupe               : AMT-D-Flip-Flop
+ * Description          : Authentication server to work locally
+ * Remarque             :
+ * Source :
+ * https://expressjs.com/en/resources/middleware/body-parser.html
+ * https://stackoverflow.com/questions/10005939/how-do-i-consume-the-json-post-data-in-an-express-application
+ * https://expressjs.com/fr/starter/hello-world.html
+ */
+
+
 const express = require('express');
 const app = express();
 const port = 3000;
@@ -10,13 +22,10 @@ class User{
     }
 }
 var users = [];
-/*
-https://stackoverflow.com/questions/10005939/how-do-i-consume-the-json-post-data-in-an-express-application
- */
 
 //app.use(bodyParser.json());
 /*
-https://expressjs.com/fr/starter/hello-world.html
+
  */
 //app.use(express.json());
 var jsonParser = bodyParser.json()
@@ -35,20 +44,35 @@ app.get('/', (req, res) => {
     })
     next();
 })*/
+
+app.post('/auth/login', jsonParser, function (
+    req, res) {
+    token = ""
+    if(req.body.username === "test" && req.body.password === "test" ){
+        token = {
+            "token": "string",
+            "account": {
+                "id": 0,
+                "username": "string",
+                "role": "string"
+            }
+        }
+    }else{
+        token = {
+            "error": "string"
+        }
+    }
+    res.json(token)
+})
 app.post('/accounts/register', jsonParser, function (
     req, res) {
     console.log(req.body)
     users.push(req.body)
-    console.log(users[0])
+
     res.json({
-        "id": 0,
-        "username": "test",
+        "username": req.body.username,
         "role": "admin"
     })
-
-    //console.log(req.body)
-    //res.send("hello")
-    //res.json({title: "GeeksforGeeks"})
 })
 
 app.listen(port, () => {

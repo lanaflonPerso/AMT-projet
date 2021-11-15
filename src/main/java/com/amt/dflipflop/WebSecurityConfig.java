@@ -48,19 +48,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.authenticationProvider(authenticationProvider());
     }
 
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/**", "/css/*", "/js/*", "/images/*", "/demo/*").permitAll()
-                .anyRequest().authenticated()
-                .and()
+                    .antMatchers("/**", "/css/*", "/js/*", "/images/*", "/demo/*").permitAll()
+                    .anyRequest().authenticated()
+                    .and()
                 .formLogin()
-                .usernameParameter("email")
-                .defaultSuccessUrl("/users")
-                .permitAll()
-                .and()
+                    .usernameParameter("username")
+                    .defaultSuccessUrl("/")
+                    .permitAll()
+                    .and()
                 .logout().logoutSuccessUrl("/").permitAll(); // Disable csrf for now
     }
 }
