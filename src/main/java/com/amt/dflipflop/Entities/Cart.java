@@ -1,6 +1,7 @@
 package com.amt.dflipflop.Entities;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -10,6 +11,9 @@ public class Cart {
 
     public Cart(){
     // Add user
+
+        this.selections = new ArrayList<ProductSelection>();
+        this.submitted = false;
     }
 
     // Use the user as the id
