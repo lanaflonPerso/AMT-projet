@@ -2,11 +2,6 @@ package com.amt.dflipflop.Controllers;
 
 import com.amt.dflipflop.Entities.User;
 import com.amt.dflipflop.Repositories.UserRepository;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -81,6 +76,7 @@ public class UserController {
     /*
     https://www.codejava.net/frameworks/spring-boot/user-registration-and-login-tutorial
     https://devstory.net/11647/spring-boot-restful-client-avec-resttemplate#a13889219
+    https://www.baeldung.com/spring-resttemplate-post-json
      */
     @PostMapping("/process_register")
     public String processRegister(User user) {
@@ -89,7 +85,7 @@ public class UserController {
         user.setPassword(encodedPassword);
         userRepository.save(user);
         */
-        //https://www.baeldung.com/spring-resttemplate-post-json
+        //
         //String createPersonUrl = "http://mobile.iict.ch/api/json";");
         String createPersonUrl = "http://localhost:3000/accounts/register";
 
