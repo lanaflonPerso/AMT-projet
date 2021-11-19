@@ -40,15 +40,15 @@ public class Cart {
     }
 
     public List<ProductSelection> getSelections() {
-        return selections;
+        return this.selections;
+    }
+
+    public void empty(){
+        this.selections.clear();
     }
 
     public void addSelection(ProductSelection selection) {
         this.selections.add(selection);
-    }
-
-    public void clearSelections() {
-        this.selections.clear();
     }
 
     public void setSelections(List<ProductSelection> selections) {

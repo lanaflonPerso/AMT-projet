@@ -30,9 +30,7 @@ public class CartService {
         return cart.orElse(null);
     }
 
-    public Cart insert(Cart cart){
-        return cartRepository.save(cart);
-    }
+    public Cart save(Cart cart) { return cartRepository.save(cart); }
 
     public void remove(Integer id){
         cartRepository.deleteById(id);
