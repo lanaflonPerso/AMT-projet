@@ -14,6 +14,9 @@ public class CartService {
     @Autowired
     private CartRepository cartRepository;
 
+    @Autowired
+    private ProductSelectionService selectionService;
+
     public ArrayList<Cart> getAll() {
 
         Iterable<Cart> it = cartRepository.findAll();
@@ -30,7 +33,11 @@ public class CartService {
         return cart.orElse(null);
     }
 
-    public Cart save(Cart cart) { return cartRepository.save(cart); }
+    public Cart save(Cart cart) {
+        // Save the selections in the DB
+        cart.getSelections().forEach(selectionService::save);
+        return cartRepository.save(cart);
+    }
 
     public void remove(Integer id){
         cartRepository.deleteById(id);

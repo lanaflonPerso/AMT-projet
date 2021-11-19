@@ -48,7 +48,7 @@ public class ProductSelectionService {
         return productSelectionRepository.count();
     }
 
-    public ProductSelection update(ProductSelection selection){
+    public ProductSelection save(ProductSelection selection){
         return productSelectionRepository.save(selection);
     }
 
