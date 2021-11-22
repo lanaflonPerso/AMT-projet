@@ -102,14 +102,15 @@ public class StoreController {
     @PostMapping(path="/store/add-product") // Map ONLY POST Requests
     public String addNewProduct (@ModelAttribute("product") Product product, @RequestParam("image") MultipartFile multipartFile, BindingResult result, RedirectAttributes redirectAttrs) throws IOException {
 
+        final String uploadDir = "src/main/resources/static/images";
+        final String defaultImgName = "default.png";
+        String fileName;
+
         // Error in the format of the data submitted
         if(result.hasErrors()){
             redirectAttrs.addFlashAttribute("message", "Something went wrong, please retry");
             return "add-product";
         }
-
-        String uploadDir = "src/main/resources/static/images";
-        String fileName;
 
         // Process if an image has been selected
         if (!multipartFile.isEmpty()) {
@@ -125,6 +126,8 @@ public class StoreController {
             } catch (IOException ioe) {
                 throw new IOException("Could not save image file: " + fileName, ioe);
             }
+        } else {
+            product.setImageName(defaultImgName);
         }
 
         // Add the product via a product service
