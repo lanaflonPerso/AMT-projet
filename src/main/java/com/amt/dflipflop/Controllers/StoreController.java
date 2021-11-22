@@ -10,11 +10,15 @@ import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.nio.file.*;
+import java.util.Map;
 
 @Controller
 public class StoreController {
@@ -71,7 +75,15 @@ public class StoreController {
     }
 
     @GetMapping("/store/add-product")
-    public String getAddProductPage(Model model) {
+    public String getAddProductPage(Model model, HttpServletRequest request) {
+        // Info user after product insertion
+        Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
+        String status;
+        if (inputFlashMap != null) {
+            status = (String) inputFlashMap.get("message");
+            model.addAttribute("status", status);
+        }
+
         ArrayList<Category> categories = categoryService.getAll();
         model.addAttribute("product", new Product());
         model.addAttribute("categories", categories);
@@ -83,11 +95,19 @@ public class StoreController {
      * @param product The product get from the form (front-end)
      * @param multipartFile The stream for the picture
      * @param result State of the request
+     * @param redirectAttrs Attributes attached when redirect
      * @return The redirection to a page
      * @throws IOException If write fail
      */
     @PostMapping(path="/store/add-product") // Map ONLY POST Requests
-    public String addNewProduct (@ModelAttribute("product") Product product, @RequestParam("image") MultipartFile multipartFile, BindingResult result) throws IOException {
+    public String addNewProduct (@ModelAttribute("product") Product product, @RequestParam("image") MultipartFile multipartFile, BindingResult result, RedirectAttributes redirectAttrs) throws IOException {
+
+        // Error in the format of the data submitted
+        if(result.hasErrors()){
+            redirectAttrs.addFlashAttribute("message", "Something went wrong, please retry");
+            return "add-product";
+        }
+
         String uploadDir = "src/main/resources/static/images";
         String fileName;
 
@@ -110,11 +130,9 @@ public class StoreController {
         // Add the product via a product service
         productService.insert(product);
 
-        if(result.hasErrors()){
-            return "add-product";
-        }
+        redirectAttrs.addFlashAttribute("message", "Success");
 
-        return "redirect:/store";
+        return "redirect:/store/add-product";
     }
 
 }
