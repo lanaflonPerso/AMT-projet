@@ -25,27 +25,18 @@ public class CartController {
     @Autowired
     private ProductSelectionService selectionService;
 
-
-    // Only used for testing
-    @GetMapping("/cart-create")
-    public String createCart(Model model) {
-        Cart cart = new Cart();
-        ProductSelection sel = new ProductSelection();
-        sel.setProduct(productService.get(1));
-        sel.setQuantity(2);
-        cart.addSelection(sel);
-        cartService.save(cart);
-        model.addAttribute("cart", cart);
-        return "cart";
-    }
-
     /**
      * Displays the user's cart
      * @return the cart page
      */
     @GetMapping("/cart")
     public String displayCart(Model model) {
-        Cart cart = cartService.get(22);
+        Cart cart = cartService.getAll().get(0);
+        // Create a new cart if we don't have any
+        if(cart == null){
+            cart = new Cart();
+            cartService.save(cart);
+        }
         model.addAttribute("cart", cart);
         return "cart";
     }
@@ -56,7 +47,10 @@ public class CartController {
      */
     @GetMapping("/cart/empty")
     public String emptyCart(Model model) {
-        Cart userCart = cartService.get(22);
+        Cart userCart = cartService.getAll().get(0);
+        for ( ProductSelection sel : userCart.getSelections()){
+            selectionService.delete(sel);
+        }
         userCart.empty();
         cartService.save(userCart);
         return "redirect:/cart";
@@ -70,7 +64,7 @@ public class CartController {
      */
     @PostMapping(path="/cart")
     public String saveCart (@ModelAttribute Cart cart) throws IOException {
-        Cart userCart = cartService.get(22);
+        Cart userCart = cartService.getAll().get(0);
         Integer index = 0;
         for (ProductSelection sel: userCart.getSelections()){
             sel.setQuantity(cart.getSelections().get(index).getQuantity());
@@ -80,27 +74,55 @@ public class CartController {
         return "redirect:/cart";
     }
 
-    /**
-     * Adds an item selection to the cart
-     * @param selection Product selection
-     * @return The product page
-     * @throws IOException If it can't add the selection
+    /** Adds a product to the cart
+     *
+     * @param productId Id of the product to add
+     * @param quantity Quantity to add
+     * @return
+     * @throws IOException
      */
     @PostMapping(path="/cart/add")
-    public String addProduct (@ModelAttribute ProductSelection selection) throws IOException {
+    public String addProduct (Integer productId, Integer quantity) throws IOException {
+        // Sanity check
+        if(quantity < 1)
+            quantity = 1;
+
         // Let's check if we already have a selection for that product
-        Cart userCart = cartService.get(22);
+        Cart userCart = cartService.getAll().get(0);
         for ( ProductSelection sel : userCart.getSelections()){
-            if(sel.getProduct().getId() == selection.getProduct().getId()){
-                sel.setQuantity(sel.getQuantity() + selection.getQuantity());
+            if(sel.getProduct().getId() == productId){
+                sel.setQuantity(sel.getQuantity() + quantity);
                 cartService.save(userCart);
-                return "/store/product/" + selection.getProduct().getId();
+                return "redirect:/store/product/" + productId;
             }
         }
-
-        userCart.addSelection(selection);
+        ProductSelection newSel = new ProductSelection();
+        newSel.setProduct(productService.get(productId));
+        newSel.setQuantity(quantity);
+        userCart.addSelection(newSel);
         cartService.save(userCart);
-        return "/store/product/" + selection.getProduct().getId();
+        return "redirect:/store/product/" + productId;
+    }
+
+    /** Removes a product to the cart
+     *
+     * @param productId Id of the product to remove
+     * @return
+     * @throws IOException
+     */
+    @GetMapping(path="/cart/remove/{id}")
+    public String removeProduct (@PathVariable("id") Integer productId) throws IOException {
+        Cart userCart = cartService.getAll().get(0);
+
+        for ( ProductSelection sel : userCart.getSelections()){
+            if(sel.getProduct().getId() == productId){
+                selectionService.delete(sel);
+            }
+            userCart.getSelections().remove(sel);
+            cartService.save(userCart);
+            return "redirect:/cart";
+        }
+        return "redirect:/cart";
     }
 }
 

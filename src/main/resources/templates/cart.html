@@ -24,6 +24,7 @@
                         <tr th:each="selection, itemStat : *{getSelections()}">
                             <td><p th:text="${selection.getProduct().getName()}"></p></td>
                             <td><input th:field="*{selections[__${itemStat.index}__].quantity}" /></td>
+                            <td><a th:href="'/cart/remove/' + ${selection.getProduct().getId()}">Remove</a></td>
                         </tr>
                         </tbody>
                     </table>
