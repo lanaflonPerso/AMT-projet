@@ -34,8 +34,6 @@ public class CartService {
     }
 
     public Cart save(Cart cart) {
-        // Save the selections in the DB
-        cart.getSelections().forEach(selectionService::save);
         return cartRepository.save(cart);
     }
 

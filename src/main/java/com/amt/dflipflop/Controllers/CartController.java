@@ -99,6 +99,7 @@ public class CartController {
         ProductSelection newSel = new ProductSelection();
         newSel.setProduct(productService.get(productId));
         newSel.setQuantity(quantity);
+        selectionService.save(newSel);
         userCart.addSelection(newSel);
         cartService.save(userCart);
         return "redirect:/store/product/" + productId;
