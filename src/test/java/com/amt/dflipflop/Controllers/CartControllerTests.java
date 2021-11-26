@@ -16,9 +16,5 @@ public class CartControllerTests {
     @Autowired
     private MockMvc mockMvc;
 
-    @Test
-    public void shouldDisplayCart() throws Exception {
-        this.mockMvc.perform(get("/cart")).andDo(print()).andExpect(status().isOk());
-    }
 
 }

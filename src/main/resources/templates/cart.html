@@ -8,27 +8,31 @@
 <div class="collection_text">Cart</div>
 
 <div class="layout_padding gallery_section">
-    <div class="row">
-        <form action="#" th:action="@{/cart}" th:object="${cart}" method="post">
-            <fieldset>
-                <input type="submit" id="submitButton" th:value="Save">
-                <table>
-                    <thead>
-                    <tr>
-                        <th> Item</th>
-                        <th> Quantity</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="selection, itemStat : *{getSelections()}">
-                        <td><p th:text="${selection.getProduct().getName()}"></p></td>
-                        <td><input th:field="*{selections[__${itemStat.index}__].quantity}" /></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </fieldset>
-        </form>
+    <div class="cart-items">
+        <a href="/cart/empty">Empty Cart</a>
+        <div class="row">
+            <form action="#" th:action="@{/cart}" th:object="${cart}" method="post">
+                <fieldset>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th> Item</th>
+                            <th> Quantity</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="selection, itemStat : *{getSelections()}">
+                            <td><p th:text="${selection.getProduct().getName()}"></p></td>
+                            <td><input th:field="*{selections[__${itemStat.index}__].quantity}" /></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <input type="submit" id="submitButton" th:value="Save">
+                </fieldset>
+            </form>
+        </div>
     </div>
+
 </div>
 
 <!-- New Arrivals section end -->

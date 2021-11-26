@@ -51,6 +51,18 @@ public class CartController {
     }
 
     /**
+     * Empties the cart
+     * @return the cart page
+     */
+    @GetMapping("/cart/empty")
+    public String emptyCart(Model model) {
+        Cart userCart = cartService.get(22);
+        userCart.empty();
+        cartService.save(userCart);
+        return "redirect:/cart";
+    }
+
+    /**
      * Saves the cart selection
      * @param cart the new cart to save
      * @return Cart page
